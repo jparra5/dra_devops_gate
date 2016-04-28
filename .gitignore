@@ -1,2 +1,6 @@
 toolchainAPICall.py
 toolchainAPICall.sh
+node_modules/
+local-test.sh
+package.json
+TODO

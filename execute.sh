@@ -119,8 +119,7 @@ npm install grunt-cli
 
 echo -e "${no_color}"
 debugme echo "DRA_CRITERIA: ${DRA_CRITERIA}"
-debugme echo "DRA_ENVIRONMENT: ${DRA_TEST_LOG_FILE}"
-debugme echo "DRA_MODULE: ${DRA_CHECK_TEST_REGRESSION}"
+debugme echo "DRA_ENVIRONMENT: ${DRA_ENVIRONMENT}"
 debugme echo "DRA_LIFE_CYCLE_STAGE_SELECT: ${DRA_LIFE_CYCLE_STAGE_SELECT}"
 
 debugme echo "DRA_SERVER: ${DRA_SERVER}"
