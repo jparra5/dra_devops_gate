@@ -41,14 +41,12 @@ set +x
 #
 #   $1  Criteria
 #   $2  Environment
-#   $3  Stage
 #
 function dra_command_for_decision {
     echo -e "${no_color}"
     
     dra_grunt_command="grunt --gruntfile=node_modules/grunt-idra3/idra.js -decision=$1"
     dra_grunt_command="$dra_grunt_command -env=$2"
-    dra_grunt_command="$dra_grunt_command -stage=$3"
 
     debugme echo -e "FINAL dra_grunt_command: $dra_grunt_command"
     debugme echo -e "${no_color}"
@@ -120,7 +118,6 @@ npm install grunt-cli
 echo -e "${no_color}"
 debugme echo "DRA_CRITERIA: ${DRA_CRITERIA}"
 debugme echo "DRA_ENVIRONMENT: ${DRA_ENVIRONMENT}"
-debugme echo "DRA_LIFE_CYCLE_STAGE_SELECT: ${DRA_LIFE_CYCLE_STAGE_SELECT}"
 
 debugme echo "DRA_SERVER: ${DRA_SERVER}"
 debugme echo "CF_ORGANIZATION_ID: $CF_ORGANIZATION_ID"
@@ -133,7 +130,7 @@ debugme echo -e "${no_color}"
 if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ] && \
     [ -n "${DRA_ENVIRONMENT}" ] && [ "${DRA_ENVIRONMENT}" != " " ]; then
 
-    dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}" "${DRA_LIFE_CYCLE_STAGE_SELECT}"
+    dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}"
     
 else
     echo -e "${no_color}"
