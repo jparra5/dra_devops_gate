@@ -41,29 +41,14 @@ set +x
 #
 #   $1  Criteria
 #   $2  Environment
-#   $3  Module
-#   $4  Stage
+#   $3  Stage
 #
 function dra_command_for_decision {
     echo -e "${no_color}"
     
     dra_grunt_command="grunt --gruntfile=node_modules/grunt-idra3/idra.js -decision=$1"
     dra_grunt_command="$dra_grunt_command -env=$2"
-    dra_grunt_command="$dra_grunt_command -stage=$4"
-
-    debugme echo -e "dra_grunt_command with decision, env, & stage: \n\t$dra_grunt_command"
-
-    if [ -n "$3" ] && [ "$3" != " " ]; then
-
-        debugme echo -e "\tModule: '$3' is defined and not empty"
-        dra_grunt_command="$dra_grunt_command -module=$3"
-        debugme echo -e "\tdra_grunt_command: \n\t\t$dra_grunt_command"
-
-    else
-        debugme echo -e "\tModule: '$3' is not defined or is empty"
-        debugme echo -e "${no_color}"
-    fi
-
+    dra_grunt_command="$dra_grunt_command -stage=$3"
 
     debugme echo -e "FINAL dra_grunt_command: $dra_grunt_command"
     debugme echo -e "${no_color}"
@@ -149,7 +134,7 @@ debugme echo -e "${no_color}"
 if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ] && \
     [ -n "${DRA_ENVIRONMENT}" ] && [ "${DRA_ENVIRONMENT}" != " " ]; then
 
-    dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}" "${DRA_MODULE}" "${DRA_LIFE_CYCLE_STAGE_SELECT}"
+    dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}" "${DRA_LIFE_CYCLE_STAGE_SELECT}"
     
 else
     echo -e "${no_color}"
