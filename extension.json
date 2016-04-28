@@ -1,0 +1,117 @@
+{
+    "id": "ibm.devops.services.pipeline.dra_devops_gate",
+    "version": 1,
+    "name_key": "ExtName",
+    "desc_key": "ExtDesc",
+    "extension_type": "Test",
+    "message_key": "ExtMessage",
+    "inputs": [
+        {
+            "type": "Artifacts",
+            "inclusion" : "always"
+        }
+    ],
+    "params": [
+        {
+            "name": "CRITERIA",
+            "type": "Text",
+            "required": "true",
+            "default_value": "",
+            "label_key": "CRITERIA_KEY",
+            "desc_key": "CRITERIA_DESC"
+        },
+        {
+            "name": "ENVIRONMENT",
+            "type": "Text",
+            "required": "true",
+            "default_value": "",
+            "label_key": "ENVIRONMENT_KEY",
+            "desc_key": "ENVIRONMENT_DESC"
+        },
+        {
+            "name": "LIFE_CYCLE_STAGE_SELECT",
+            "type": "Select",
+            "required": "true",
+            "default_value": "code",
+            "label_key": "LIFE_CYCLE_STAGE_SELECT_KEY",
+            "desc_key": "LIFE_CYCLE_STAGE_SELECT_DESC",
+            "options": [
+                {
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_1_KEY",
+                    "value": "code"
+                },
+                {
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_2_KEY",
+                    "value": "unittest"
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_3_KEY",
+                    "value": "smoketest" 
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_4_KEY",
+                    "value": "fvt" 
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_5_KEY",
+                    "value": "monitoring" 
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_6_KEY",
+                    "value": "deploy" 
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_7_KEY",
+                    "value": "othertest" 
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_8_KEY",
+                    "value": "codescan" 
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_9_KEY",
+                    "value": "licensescan" 
+                },
+                { 
+                    "label_key": "LIFE_CYCLE_STAGE_OPTION_10_KEY",
+                    "value": "perftest" 
+                }
+            ]
+        }
+    ],
+    "outputs": [
+        {
+            "type": "Artifacts",
+            "inclusion" : "always"
+        },
+        {
+            "type": "Tests",
+            "inclusion": "optional"
+        }
+    ],
+    "execution": {
+        "type": "JenkinsDocker",
+        "shell": "#!/bin/bash
+
+set +x
+set +e 
+
+
+
+export DRA_CRITERIA=#CRITERIA#
+export DRA_ENVIRONMENT=#ENVIRONMENT#
+export DRA_MODULE=#MODULE#
+export DRA_LIFE_CYCLE_STAGE_SELECT=#LIFE_CYCLE_STAGE_SELECT#
+        
+        
+. $EXT_DIR/execute.sh
+RESULT=$?
+        
+if [ $RESULT -ne 0 ]; then
+    exit 1
+fi
+    "},
+    "project": "https://hub.jazz.net/project/alchemy/Alchemy-Ostanes",
+    "project_example": "https://hub.jazz.net/pipeline/Osthanes/blazemeter_static",
+    "project_contact": "jparra@us.ibm.com"
+}
