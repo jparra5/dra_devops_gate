@@ -48,9 +48,9 @@ set +e
 
 
 
-export DRA_CRITERIA=#CRITERIA#
-export DRA_ENVIRONMENT=#ENVIRONMENT#
-export DRA_MODULE=#MODULE#
+export DRA_CRITERIA=\"#CRITERIA#\"
+export DRA_ENVIRONMENT=\"#ENVIRONMENT#\"
+export DRA_MODULE=\"#MODULE#\"
         
         
 . $EXT_DIR/execute.sh
