@@ -45,14 +45,16 @@ set +x
 function dra_command_for_decision {
     echo -e "${no_color}"
     
-    dra_grunt_command="grunt --gruntfile=node_modules/grunt-idra3/idra.js -decision=\"$1\""
-    dra_grunt_command="$dra_grunt_command -env=\"$2\""
+    
+    #dra_grunt_command="grunt --gruntfile=node_modules/grunt-idra3/idra.js -decision=\"$1\""
+    #dra_grunt_command="$dra_grunt_command -env=\"$2\""
 
-    debugme echo -e "FINAL dra_grunt_command: $dra_grunt_command"
+    #debugme echo -e "FINAL dra_grunt_command: $dra_grunt_command"
     debugme echo -e "${no_color}"
 
 
-    eval "$dra_grunt_command --no-color"
+    #eval "$dra_grunt_command --no-color"
+    grunt --gruntfile=node_modules/grunt-idra3/idra.js -decision="$1" -env="$2" --no-color
     GRUNT_RESULT=$?
 
     debugme echo "GRUNT_RESULT: $GRUNT_RESULT"
