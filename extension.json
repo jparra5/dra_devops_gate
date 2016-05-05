@@ -21,6 +21,14 @@
             "desc_key": "ENVIRONMENT_DESC"
         },
         {
+            "name": "APPLICATION_NAME",
+            "type": "Text",
+            "required": "true",
+            "default_value": "",
+            "label_key": "APPLICATION_NAME_KEY",
+            "desc_key": "APPLICATION_NAME_DESC"
+        },
+        {
             "name": "CRITERIA",
             "type": "Text",
             "required": "true",
@@ -50,6 +58,7 @@ set +e
 
 export DRA_CRITERIA=\"#CRITERIA#\"
 export DRA_ENVIRONMENT=\"#ENVIRONMENT#\"
+export DRA_APPLICATION_NAME=\"#APPLICATION_NAME#\"
         
         
 . $EXT_DIR/execute.sh
