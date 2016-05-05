@@ -68,14 +68,7 @@ OUTPUT_FILE='draserver.txt'
 ${EXT_DIR}/dra-check.py ${PIPELINE_TOOLCHAIN_ID} "${TOOLCHAIN_TOKEN}" "${IDS_PROJECT_NAME}" "${OUTPUT_FILE}"
 RESULT=$?
 
-#
-# Retrieve variables from toolchain API
-#
-DRA_CHECK_OUTPUT=`cat ${OUTPUT_FILE}`
-IFS=$'\n' read -rd '' -a dradataarray <<< "$DRA_CHECK_OUTPUT"
-export CF_ORGANIZATION_ID=${dradataarray[0]}
-#export DRA_SERVER=${dradataarray[1]}
-rm ${OUTPUT_FILE}
+
 
 
 
@@ -89,6 +82,17 @@ rm ${OUTPUT_FILE}
 
 if [ $RESULT -eq 0 ]; then
     debugme echo "DRA is present";
+    
+    
+    #
+    # Retrieve variables from toolchain API
+    #
+    DRA_CHECK_OUTPUT=`cat ${OUTPUT_FILE}`
+    IFS=$'\n' read -rd '' -a dradataarray <<< "$DRA_CHECK_OUTPUT"
+    export CF_ORGANIZATION_ID=${dradataarray[0]}
+    #export DRA_SERVER=${dradataarray[1]}
+    rm ${OUTPUT_FILE}
+    
     
     echo -e "${green}"
     echo "**********************************************************************"
