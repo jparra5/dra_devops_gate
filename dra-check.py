@@ -46,9 +46,9 @@ try:
                         #Test case
                         #services[ 'dashboard_url' ]='https://da.oneibmcloud.com/dalskdjl/ljalkdj/'
                         #print services[ 'dashboard_url' ]
-                        urlRegex = re.compile(r'http\w*://\S+?/');
-                        mo = urlRegex.search(services[ 'dashboard_url' ])
-                        DRA_SERVER = mo.group()[:-1]
+                        #urlRegex = re.compile(r'http\w*://\S+?/');
+                        #mo = urlRegex.search(services[ 'dashboard_url' ])
+                        #DRA_SERVER = mo.group()[:-1]
     else:
         #ERROR response from toolchain API
         print 'ERROR:', r.status_code, '-', data
