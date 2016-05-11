@@ -96,15 +96,15 @@ if [ $RESULT -eq 0 ]; then
     # Use parameters from broker unless the environment variables are defined.
     #
     if [ -z "${CF_CONTROLLER}" ] || [ "${CF_CONTROLLER}" == "" ]; then
-        debugme echo "CF_CONTROLLER environment variable not declared using '${dradataarray[1]}' from toolchain call";
+        debugme echo "CF_CONTROLLER environment variable not declared, using '${dradataarray[1]}' from toolchain call";
         export CF_CONTROLLER=${dradataarray[1]}    
     fi
     if [ -z "${DRA_SERVER}" ] || [ "${DRA_SERVER}" == "" ]; then
-        debugme echo "DRA_SERVER environment variable not declared using '${dradataarray[2]}' from toolchain call";
+        debugme echo "DRA_SERVER environment variable not declared, using '${dradataarray[2]}' from toolchain call";
         export DRA_SERVER=${dradataarray[2]}    
     fi
     if [ -z "${DLMS_SERVER}" ] || [ "${DLMS_SERVER}" == "" ]; then
-        debugme echo "DLMS_SERVER environment variable not declared using '${dradataarray[3]}' from toolchain call";
+        debugme echo "DLMS_SERVER environment variable not declared, using '${dradataarray[3]}' from toolchain call";
         export DLMS_SERVER=${dradataarray[3]}    
     fi
     
