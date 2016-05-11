@@ -21,7 +21,9 @@ OUTPUT_FILE = sys.argv[4]
 DRA_SERVICE_NAME = 'draservicebroker'
 DRA_PRESENT = False
 ORGANIZATION_GUID = ''
+CF_CONTROLLER = ''
 DRA_SERVER = ''
+DLMS_SERVER = ''
 
 
 
@@ -43,6 +45,9 @@ try:
                     #print services[ 'service_id' ]
                     if services[ 'service_id' ] == DRA_SERVICE_NAME:
                         DRA_PRESENT = True
+                        CF_CONTROLLER = services[ 'parameters' ][ 'cf_controller' ]
+                        DRA_SERVER = services[ 'parameters' ][ 'dra_server' ]
+                        DLMS_SERVER = services[ 'parameters' ][ 'dlms_server' ]
                         #Test case
                         #services[ 'dashboard_url' ]='https://da.oneibmcloud.com/dalskdjl/ljalkdj/'
                         #print services[ 'dashboard_url' ]
@@ -65,7 +70,11 @@ if DRA_PRESENT:
     f = open(OUTPUT_FILE,'w')
     f.write(ORGANIZATION_GUID)
     f.write('\n')
+    f.write(CF_CONTROLLER)
+    f.write('\n')
     f.write(DRA_SERVER)
+    f.write('\n')
+    f.write(DLMS_SERVER)
     f.close()
     exit(0)
 else:

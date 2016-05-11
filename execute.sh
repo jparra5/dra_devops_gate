@@ -90,7 +90,25 @@ if [ $RESULT -eq 0 ]; then
     DRA_CHECK_OUTPUT=`cat ${OUTPUT_FILE}`
     IFS=$'\n' read -rd '' -a dradataarray <<< "$DRA_CHECK_OUTPUT"
     export CF_ORGANIZATION_ID=${dradataarray[0]}
-    #export DRA_SERVER=${dradataarray[1]}
+    
+    
+    #
+    # Use parameters from broker unless the environment variables are defined.
+    #
+    if [ -z "${CF_CONTROLLER}" ] || [ "${CF_CONTROLLER}" == "" ]; then
+        debugme echo "CF_CONTROLLER environment variable not declared using '${dradataarray[1]}' from toolchain call";
+        export CF_CONTROLLER=${dradataarray[1]}    
+    fi
+    if [ -z "${DRA_SERVER}" ] || [ "${DRA_SERVER}" == "" ]; then
+        debugme echo "DRA_SERVER environment variable not declared using '${dradataarray[2]}' from toolchain call";
+        export DRA_SERVER=${dradataarray[2]}    
+    fi
+    if [ -z "${DLMS_SERVER}" ] || [ "${DLMS_SERVER}" == "" ]; then
+        debugme echo "DLMS_SERVER environment variable not declared using '${dradataarray[3]}' from toolchain call";
+        export DLMS_SERVER=${dradataarray[3]}    
+    fi
+    
+    
     rm ${OUTPUT_FILE}
     
     
@@ -129,7 +147,9 @@ debugme echo "DRA_CRITERIA: ${DRA_CRITERIA}"
 debugme echo "DRA_ENVIRONMENT: ${DRA_ENVIRONMENT}"
 debugme echo "DRA_APPLICATION_NAME: ${DRA_APPLICATION_NAME}"
 
+debugme echo "CF_CONTROLLER: ${CF_CONTROLLER}"
 debugme echo "DRA_SERVER: ${DRA_SERVER}"
+debugme echo "DLMS_SERVER: ${DLMS_SERVER}"
 debugme echo "CF_ORGANIZATION_ID: $CF_ORGANIZATION_ID"
 debugme echo "PIPELINE_INITIAL_STAGE_EXECUTION_ID: $PIPELINE_INITIAL_STAGE_EXECUTION_ID"
 debugme echo -e "${no_color}"
