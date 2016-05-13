@@ -15,21 +15,6 @@
 #   See the License for the specific language governing permissions and
 #********************************************************************************
 
-#############
-# Colors    #
-#############
-export green='\e[0;32m'
-export red='\e[0;31m'
-export label_color='\e[0;33m'
-export no_color='\e[0m' # No Color
-
-##################################################
-# Simple function to only run command if DEBUG=1 # 
-### ###############################################
-debugme() {
-  [[ $EXTENSION_DEBUG = 1 ]] && "$@" || :
-}
-
 set +e
 set +x 
 
@@ -64,82 +49,16 @@ function dra_command_for_decision {
 
 
 
-OUTPUT_FILE='draserver.txt'
-${EXT_DIR}/dra-check.py ${PIPELINE_TOOLCHAIN_ID} "${TOOLCHAIN_TOKEN}" "${IDS_PROJECT_NAME}" "${OUTPUT_FILE}"
-RESULT=$?
 
 
 
+callOpenToolchainAPI
 
+printInitialDRAMessage
 
+installDRADependencies
 
-
-
-
-#0 = DRA is present
-#1 = DRA not present or there was an error with the http call (err msg will show)
-#echo $RESULT
-
-if [ $RESULT -eq 0 ]; then
-    debugme echo "DRA is present";
-    
-    
-    #
-    # Retrieve variables from toolchain API
-    #
-    DRA_CHECK_OUTPUT=`cat ${OUTPUT_FILE}`
-    IFS=$'\n' read -rd '' -a dradataarray <<< "$DRA_CHECK_OUTPUT"
-    export CF_ORGANIZATION_ID=${dradataarray[0]}
-    
-    
-    #
-    # Use parameters from broker unless the environment variables are defined.
-    #
-    if [ -z "${CF_CONTROLLER}" ] || [ "${CF_CONTROLLER}" == "" ]; then
-        debugme echo "CF_CONTROLLER environment variable not declared, using '${dradataarray[1]}' from toolchain call";
-        export CF_CONTROLLER=${dradataarray[1]}    
-    fi
-    if [ -z "${DRA_SERVER}" ] || [ "${DRA_SERVER}" == "" ]; then
-        debugme echo "DRA_SERVER environment variable not declared, using '${dradataarray[2]}' from toolchain call";
-        export DRA_SERVER=${dradataarray[2]}    
-    fi
-    if [ -z "${DLMS_SERVER}" ] || [ "${DLMS_SERVER}" == "" ]; then
-        debugme echo "DLMS_SERVER environment variable not declared, using '${dradataarray[3]}' from toolchain call";
-        export DLMS_SERVER=${dradataarray[3]}    
-    fi
-    
-    
-    rm ${OUTPUT_FILE}
-    
-    
-    echo -e "${green}"
-    echo "**********************************************************************"
-    echo "Deployment Risk Analytics (DRA) is active."
-    echo "**********************************************************************"
-    echo -e "${no_color}"
-    
-else  
-    debugme echo "DRA is NOT present";
-    
-    echo -e "${red}"
-    echo "*******************************************************************************************"
-    echo "In order to use this job extension, please add Deployment Risk Analytics to this toolchain."
-    echo "*******************************************************************************************"
-    echo -e "${no_color}"
-    
-    exit 1
-fi
-
-
-
-
-
-npm install grunt
-npm install grunt-cli
-npm install grunt-idra3
-
-
-
+custom_cmd
 
 
 echo -e "${no_color}"

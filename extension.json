@@ -61,6 +61,7 @@ export DRA_ENVIRONMENT=\"#ENVIRONMENT#\"
 export DRA_APPLICATION_NAME=\"#APPLICATION_NAME#\"
         
         
+. $EXT_DIR/_init.sh
 . $EXT_DIR/execute.sh
 RESULT=$?
         
