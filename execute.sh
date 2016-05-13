@@ -58,8 +58,6 @@ printInitialDRAMessage
 
 installDRADependencies
 
-custom_cmd
-
 
 echo -e "${no_color}"
 debugme echo "DRA_CRITERIA: ${DRA_CRITERIA}"
