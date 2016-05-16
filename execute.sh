@@ -29,7 +29,7 @@ set +x
 #   $3  Application Name
 #
 function dra_command_for_decision {
-    echo -e "${no_color}"
+    debugme echo -e "${no_color}"
     
     grunt --gruntfile=node_modules/grunt-idra3/idra.js -decision="$1" -env="$2" -runtime="$3" --no-color
     GRUNT_RESULT=$?
