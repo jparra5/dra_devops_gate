@@ -26,13 +26,12 @@ set +x
 #
 #   $1  Criteria
 #   $2  Environment
-#   $3  Application Name
 #
 function dra_command_for_decision {
     debugme echo -e "${no_color}"
     node_modules_dir=`npm root`
 
-    grunt --gruntfile="$node_modules_dir/grunt-idra3/idra.js" -decision="$1" -env="$2" -runtime="$3" --no-color
+    grunt --gruntfile="$node_modules_dir/grunt-idra3/idra.js" -decision="$1" -env="$2" --no-color
     GRUNT_RESULT=$?
 
     debugme echo "GRUNT_RESULT: $GRUNT_RESULT"
@@ -63,7 +62,6 @@ installDRADependencies
 echo -e "${no_color}"
 debugme echo "DRA_CRITERIA: ${DRA_CRITERIA}"
 debugme echo "DRA_ENVIRONMENT: ${DRA_ENVIRONMENT}"
-debugme echo "DRA_APPLICATION_NAME: ${DRA_APPLICATION_NAME}"
 
 debugme echo "CF_CONTROLLER: ${CF_CONTROLLER}"
 debugme echo "DRA_SERVER: ${DRA_SERVER}"
@@ -76,14 +74,13 @@ debugme echo -e "${no_color}"
 
 
 if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ] && \
-    [ -n "${DRA_ENVIRONMENT}" ] && [ "${DRA_ENVIRONMENT}" != " " ] && \
-    [ -n "${DRA_APPLICATION_NAME}" ] && [ "${DRA_APPLICATION_NAME}" != " " ]; then
+    [ -n "${DRA_ENVIRONMENT}" ] && [ "${DRA_ENVIRONMENT}" != " " ]; then
 
-    dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}" "${DRA_APPLICATION_NAME}"
+    dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}"
     
 else
     echo -e "${no_color}"
-    echo -e "${red}The Criteria Name, Environment Name, and Application Name must be declared."
+    echo -e "${red}The Criteria Name and Environment Name must be declared."
     echo -e "${no_color}"
 fi
 
