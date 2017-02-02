@@ -66,8 +66,10 @@ debugme echo "DRA_ENVIRONMENT: ${DRA_ENVIRONMENT}"
 debugme echo "CF_CONTROLLER: ${CF_CONTROLLER}"
 debugme echo "DRA_SERVER: ${DRA_SERVER}"
 debugme echo "DLMS_SERVER: ${DLMS_SERVER}"
+debugme echo "CF_ORG: $CF_ORG"
 debugme echo "CF_ORGANIZATION_ID: $CF_ORGANIZATION_ID"
 debugme echo "PIPELINE_INITIAL_STAGE_EXECUTION_ID: $PIPELINE_INITIAL_STAGE_EXECUTION_ID"
+debugme env
 debugme echo -e "${no_color}"
 
 
