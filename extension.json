@@ -15,7 +15,7 @@
         {
             "name": "ENVIRONMENT",
             "type": "Text",
-            "required": "true",
+            "required": "false",
             "default_value": "",
             "label_key": "ENVIRONMENT_KEY",
             "desc_key": "ENVIRONMENT_DESC"

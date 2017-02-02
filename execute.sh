@@ -69,20 +69,18 @@ debugme echo "DLMS_SERVER: ${DLMS_SERVER}"
 debugme echo "CF_ORG: $CF_ORG"
 debugme echo "CF_ORGANIZATION_ID: $CF_ORGANIZATION_ID"
 debugme echo "PIPELINE_INITIAL_STAGE_EXECUTION_ID: $PIPELINE_INITIAL_STAGE_EXECUTION_ID"
-debugme env
 debugme echo -e "${no_color}"
 
 
 
 
-if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ] && \
-    [ -n "${DRA_ENVIRONMENT}" ] && [ "${DRA_ENVIRONMENT}" != " " ]; then
+if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ]; then
 
     dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}"
     
 else
     echo -e "${no_color}"
-    echo -e "${red}The Criteria Name and Environment Name must be declared."
+    echo -e "${red}The Policy Name must be declared."
     echo -e "${no_color}"
 fi
 
