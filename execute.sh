@@ -31,8 +31,13 @@ function dra_command_for_decision {
     debugme echo -e "${no_color}"
     node_modules_dir=`npm root`
 
-    grunt --gruntfile="$node_modules_dir/grunt-idra3/idra.js" -decision="$1" -env="$2" --no-color
-    GRUNT_RESULT=$?
+    if [ -n "$2" ] && [ "$2" != " " ]; then
+        grunt --gruntfile="$node_modules_dir/grunt-idra3/idra.js" -decision="$1" -env="$2" --no-color
+        GRUNT_RESULT=$?
+    else
+        grunt --gruntfile="$node_modules_dir/grunt-idra3/idra.js" -decision="$1" --no-color
+        GRUNT_RESULT=$?
+    fi
 
     debugme echo "GRUNT_RESULT: $GRUNT_RESULT"
 
