@@ -25,17 +25,8 @@ source ${SCRIPTDIR}/git_util.sh
 # Get common initialization project
 pushd . >/dev/null
 cd $SCRIPTDIR
-if [[ $IDS_URL == *"stage1"* ]]; then
-    git_retry clone -b STAGE1 https://github.com/jparra5/dra_utilities.git utilities
-else
-    git_retry clone https://github.com/jparra5/dra_utilities.git utilities
-fi
+git_retry clone https://github.com/jparra5/dra_utilities.git utilities
 popd >/dev/null
 
 # Call common initialization
 source $SCRIPTDIR/utilities/init.sh
-if [[ $IDS_URL == *"stage1"* ]]; then
-    debugme echo -e "\nUsing branch: 'STAGE1' of utilities.\n"
-else
-    debugme echo -e "\nUsing branch: 'master' of utilities.\n"
-fi
