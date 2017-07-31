@@ -44,18 +44,35 @@
         "shell": "#!/bin/bash
 
 set +x
-set +e 
-
-
+set +e
 
 export DRA_CRITERIA=\"#CRITERIA#\"
 export DRA_ENVIRONMENT=\"#ENVIRONMENT#\"
-        
-        
-. $EXT_DIR/_init.sh
-. $EXT_DIR/execute.sh
+
+# need node 4.x and above to run grunt-idra3 now
+export PATH=/opt/IBM/node-v4.2/bin:$PATH
+
+# install dev version of the plugin in stage1
+if [[ $IDS_URL == *\"stage1\"* ]]; then
+    npm install -g grunt-idra3@dev &>/dev/null
+else
+    npm install -g grunt-idra3 &>/dev/null
+fi
+
+if [ -n \"${DRA_CRITERIA}\" ] && [ \"${DRA_CRITERIA}\" != \" \" ]; then
+    if [[ -n \"${DRA_ENVIRONMENT}\" ]]; then
+        idra --evaluategate --policy=\"${DRA_CRITERIA}\" --env=\"${DRA_ENVIRONMENT}\"
+    else
+        idra --evaluategate --policy=\"${DRA_CRITERIA}\"
+    fi
+else
+    echo \"The Policy Name must be declared.\"
+fi
+
+#. $EXT_DIR/_init.sh
+#. $EXT_DIR/execute.sh
 RESULT=$?
-        
+
 if [ $RESULT -ne 0 ]; then
     exit 1
 fi
