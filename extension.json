@@ -61,9 +61,9 @@ fi
 
 if [ -n \"${DRA_CRITERIA}\" ] && [ \"${DRA_CRITERIA}\" != \" \" ]; then
     if [[ -n \"${DRA_ENVIRONMENT}\" ]]; then
-        idra --evaluategate --policy=\"${DRA_CRITERIA}\" --env=\"${DRA_ENVIRONMENT}\"
+        idra --evaluategate --policy=\"${DRA_CRITERIA}\" --env=\"${DRA_ENVIRONMENT}\" --forcedecision=true
     else
-        idra --evaluategate --policy=\"${DRA_CRITERIA}\"
+        idra --evaluategate --policy=\"${DRA_CRITERIA}\" --forcedecision=true
     fi
 else
     echo \"The Policy Name must be declared.\"
