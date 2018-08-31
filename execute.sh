@@ -19,7 +19,7 @@ set +e
 set +x 
 
 
-
+echo "in execute.sh"
 
 
 # need node 4.x and above to run grunt-idra3 now
@@ -29,14 +29,17 @@ export PATH=/opt/IBM/node-v4.2/bin:$PATH
 
 # install dev version of the plugin in stage1
 if [[ $IDS_URL == *"stage1"* ]]; then
+    echo "stage1"
     npm install -g grunt-idra3@dev &>/dev/null
 else
+    echo "prod"
     npm install -g grunt-idra3 &>/dev/null
 fi
 
 
 
 if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ]; then
+    echo "evaluate"
     idra --evaluategate --policy="${DRA_CRITERIA}" --forcedecision=true
 else
     echo "The Policy Name must be declared."
