@@ -21,74 +21,24 @@ set +x
 
 
 
-#
-# Build Grunt-Idra call
-#
-#   $1  Criteria
-#   $2  Environment
-#
-function dra_command_for_decision {
-    debugme echo -e "${no_color}"
-    node_modules_dir=`npm root`
 
-    if [ -n "$2" ] && [ "$2" != " " ]; then
-        grunt --gruntfile="$node_modules_dir/grunt-idra3/idra.js" -decision="$1" -env="$2" --no-color
-        GRUNT_RESULT=$?
-    else
-        grunt --gruntfile="$node_modules_dir/grunt-idra3/idra.js" -decision="$1" --no-color
-        GRUNT_RESULT=$?
-    fi
-
-    debugme echo "GRUNT_RESULT: $GRUNT_RESULT"
-
-    if [ $GRUNT_RESULT -ne 0 ]; then
-        exit 1
-    fi
-    
-    echo -e "${no_color}"
-}
+# need node 4.x and above to run grunt-idra3 now
+export PATH=/opt/IBM/node-v4.2/bin:$PATH
 
 
 
-
-
-
-
-
-
-
-callOpenToolchainAPI
-
-printInitialDRAMessage
-
-installDRADependencies
-
-
-echo -e "${no_color}"
-debugme echo "DRA_CRITERIA: ${DRA_CRITERIA}"
-debugme echo "DRA_ENVIRONMENT: ${DRA_ENVIRONMENT}"
-
-debugme echo "CF_CONTROLLER: ${CF_CONTROLLER}"
-debugme echo "DRA_SERVER: ${DRA_SERVER}"
-debugme echo "DLMS_SERVER: ${DLMS_SERVER}"
-debugme echo "CF_ORG: $CF_ORG"
-debugme echo "CF_ORGANIZATION_ID: $CF_ORGANIZATION_ID"
-debugme echo "PIPELINE_INITIAL_STAGE_EXECUTION_ID: $PIPELINE_INITIAL_STAGE_EXECUTION_ID"
-debugme echo -e "${no_color}"
-
-
-
-
-if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ]; then
-
-    dra_command_for_decision "${DRA_CRITERIA}" "${DRA_ENVIRONMENT}"
-    
+# install dev version of the plugin in stage1
+if [[ $IDS_URL == *"stage1"* ]]; then
+    npm install -g grunt-idra3@dev &>/dev/null
 else
-    echo -e "${no_color}"
-    echo -e "${red}The Policy Name must be declared."
-    echo -e "${no_color}"
+    npm install -g grunt-idra3 &>/dev/null
 fi
 
 
 
-
+if [ -n "${DRA_CRITERIA}" ] && [ "${DRA_CRITERIA}" != " " ]; then
+    idra --evaluategate --policy="${DRA_CRITERIA}" --forcedecision=true
+else
+    echo "The Policy Name must be declared."
+    exit 1
+fi

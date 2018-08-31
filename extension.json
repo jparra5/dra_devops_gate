@@ -13,14 +13,6 @@
     ],
     "params": [
         {
-            "name": "ENVIRONMENT",
-            "type": "Text",
-            "required": "false",
-            "default_value": "",
-            "label_key": "ENVIRONMENT_KEY",
-            "desc_key": "ENVIRONMENT_DESC"
-        },
-        {
             "name": "CRITERIA",
             "type": "Text",
             "required": "true",
@@ -46,36 +38,22 @@
 set +x
 set +e
 
+
+
 export DRA_CRITERIA=\"#CRITERIA#\"
-export DRA_ENVIRONMENT=\"#ENVIRONMENT#\"
 
-# need node 4.x and above to run grunt-idra3 now
-export PATH=/opt/IBM/node-v4.2/bin:$PATH
 
-# install dev version of the plugin in stage1
-if [[ $IDS_URL == *\"stage1\"* ]]; then
-    npm install -g grunt-idra3@dev &>/dev/null
-else
-    npm install -g grunt-idra3 &>/dev/null
-fi
 
-if [ -n \"${DRA_CRITERIA}\" ] && [ \"${DRA_CRITERIA}\" != \" \" ]; then
-    if [[ -n \"${DRA_ENVIRONMENT}\" ]]; then
-        idra --evaluategate --policy=\"${DRA_CRITERIA}\" --env=\"${DRA_ENVIRONMENT}\" --forcedecision=true
-    else
-        idra --evaluategate --policy=\"${DRA_CRITERIA}\" --forcedecision=true
-    fi
-else
-    echo \"The Policy Name must be declared.\"
-fi
-
-#. $EXT_DIR/_init.sh
-#. $EXT_DIR/execute.sh
+. $EXT_DIR/execute.sh
 RESULT=$?
+
+
 
 if [ $RESULT -ne 0 ]; then
     exit 1
 fi
+
+
     "},
     "project": "https://hub.jazz.net/project/alchemy/Alchemy-Ostanes",
     "project_example": "https://hub.jazz.net/pipeline/Osthanes/blazemeter_static",
