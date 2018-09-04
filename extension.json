@@ -42,17 +42,14 @@ set +e
 
 export DRA_CRITERIA=\"#CRITERIA#\"
 
-pwd
-echo $EXT_DIR
-ls -l $EXT_DIR
+
 
 . $EXT_DIR/execute.sh
 RESULT=$?
 
-echo $RESULT
+
 
 if [ $RESULT -ne 0 ]; then
-    echo \"exit 1\"
     exit 1
 fi
 
